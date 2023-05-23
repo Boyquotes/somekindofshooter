@@ -14,3 +14,6 @@ func _physics_process(delta):
 	velocity = velocity.move_toward(input_vector * SPEED, FRICTION)
 	
 	move_and_slide(velocity)
+
+func _process(delta):
+	look_at(get_global_mouse_position())

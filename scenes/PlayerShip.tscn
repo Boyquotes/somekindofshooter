@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/PlayerShipMovement.gd" type="Script" id=1]
+[ext_resource path="res://scripts/SpawnBullet.gd" type="Script" id=2]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -11,3 +12,7 @@ polygon = PoolVector2Array( 0, -10, -7, 7, 7, 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 1.5708
+
+[node name="BulletSpawnPosition" type="Position2D" parent="."]
+position = Vector2( 12, 0 )
+script = ExtResource( 2 )

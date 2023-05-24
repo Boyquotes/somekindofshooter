@@ -16,3 +16,8 @@ rotation = 1.5708
 [node name="BulletSpawnPosition" type="Position2D" parent="."]
 position = Vector2( 12, 0 )
 script = ExtResource( 2 )
+
+[node name="WeaponFirerate" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+autostart = true

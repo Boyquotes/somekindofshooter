@@ -1,19 +1,38 @@
 extends KinematicBody2D
 
-const SPEED = 300
-const FRICTION = 100
-var velocity = Vector2.ZERO
+const SPEED = 500
+const FRICTION = 0.01
+var velocity = 0
+
+var old_rotation
+var status
+
+#clamp turn speed with sharp turns
 
 func _physics_process(delta):
-	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	input_vector.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+	var distance_to_mouse = position.distance_to(get_global_mouse_position())
 	
-	input_vector = input_vector.normalized()
+	if Input.is_action_pressed("forward"):
+		velocity = lerp(velocity, SPEED, FRICTION * 10)
+		if distance_to_mouse < 100:
+			velocity = lerp(velocity, 0, FRICTION * 10)
+		if distance_to_mouse < 10:
+			velocity = 0
+			
+		old_rotation = rotation
+		status = "moving"
+	else:
+		velocity = lerp(velocity, 0, FRICTION)
 	
-	velocity = velocity.move_toward(input_vector * SPEED, FRICTION)
+	if Input.is_action_pressed("shoot"):
+		status = "shooting"
 	
-	move_and_slide(velocity)
+	if status == "shooting":
+		move_and_slide(Vector2(velocity, 0).rotated(old_rotation))
+	else:
+		move_and_slide(Vector2(velocity, 0).rotated(rotation))
+
 
 func _process(delta):
-	look_at(get_global_mouse_position())
+	if Input.is_action_pressed("forward") or Input.is_action_pressed("shoot"):
+		look_at(get_global_mouse_position())

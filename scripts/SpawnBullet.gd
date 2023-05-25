@@ -12,7 +12,6 @@ func _process(delta):
 	firerate_gauge.value = firerate_timer.time_left
 	
 	if Input.is_action_pressed("shoot"):
-		print(firerate_timer.time_left)
 		if firerate_timer.time_left == 0:
 			var bullet = bullet_scene.instance()
 			bullet.position = global_position

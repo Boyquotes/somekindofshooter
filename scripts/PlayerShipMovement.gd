@@ -4,7 +4,7 @@ const SPEED = 500
 const FRICTION = 0.01
 var velocity = 0
 
-var old_rotation
+var old_rotation = 0
 var status
 
 #clamp turn speed with sharp turns
